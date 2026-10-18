@@ -23,6 +23,7 @@
   --gray-200:#434c5e;
   --gray-500:#d8dee9;
   --seg-thumb:#4c566a;
+  --quote-color:#A8B1FF;
 }
 @media (prefers-color-scheme:dark){
   :root[data-theme='auto']{
@@ -35,5 +36,6 @@
     --gray-200:#434c5e;
     --gray-500:#d8dee9;
     --seg-thumb:#4c566a;
+    --quote-color:#A8B1FF;
   }
 }
