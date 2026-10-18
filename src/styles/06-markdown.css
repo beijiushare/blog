@@ -5,7 +5,8 @@
 .markdown h1{font-size:1.75em}
 .markdown h2{font-size:1.5em;border-bottom:var(--space-1) solid var(--gray-200);padding-bottom:.25em}
 .markdown h3{font-size:1.25em}
-.markdown p,.markdown ul,.markdown ol,.markdown pre,.markdown table,.markdown details{margin:var(--space-16) 0}
+.markdown ul,.markdown ol,.markdown pre,.markdown table,.markdown details{margin:var(--space-16) 0}
+.markdown p{margin:var(--space-16) 0 1.7em}
 .markdown ul,.markdown ol{padding-inline-start:1.5em}
 .markdown li+li{margin-top:.25em}
 .markdown a[href]{text-decoration:underline;text-underline-offset:2px}
