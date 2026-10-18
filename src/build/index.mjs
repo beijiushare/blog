@@ -50,6 +50,7 @@ async function main () {
   const cssFiles = fs.readdirSync(STYLE_DIR).filter(f => f.endsWith('.css')).sort()
   const css = cssFiles.map(f => fs.readFileSync(path.join(STYLE_DIR, f), 'utf8')).join('\n')
   fs.writeFileSync(path.join(PUBLIC_DIR, 'style.css'), css)
+  fs.writeFileSync(path.join(PUBLIC_DIR, 'CNAME'), 'blog.beijiu.top\n')
 
   const rootHtml = `<!DOCTYPE html><html lang="${DEFAULT_LANG}"><head><meta charset="utf-8"><title>${esc(siteTitle)}</title><meta http-equiv="refresh" content="0;url=${BASE}/${DEFAULT_LANG}/"><script>try{var l=localStorage.getItem('lang');if(!l){var n=(navigator.language||'').toLowerCase();l=n.indexOf('zh')===0?(n.indexOf('zh-tw')===0||n.indexOf('zh-hk')===0||n.indexOf('zh-mo')===0||n.indexOf('zh-hant')===0?'zh-Hant':'zh'):'en'};location.replace(l+'/')}catch(e){location.replace('${DEFAULT_LANG}/')}</script></head><body></body></html>`
   fs.writeFileSync(path.join(PUBLIC_DIR, 'index.html'), rootHtml)
