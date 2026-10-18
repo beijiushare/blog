@@ -284,7 +284,7 @@ function genRss (lang, pages, siteTitle) {
   }
   items.sort((a, b) => b.date - a.date)
   const lastBuild = items.length ? items[0].date.toUTCString() : new Date().toUTCString()
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>${escXml(siteTitle)} (${lang})</title><link>${escXml(SITE_URL + '/' + lang + '/')}</link><description>${escXml(ui.siteTitle)}</description><language>${lang}</language><generator>build.mjs</generator><lastBuildDate>${lastBuild}</lastBuildDate><ttl>60</ttl><atom:link rel="self" type="application/rss+xml" href="${escXml(selfUrl)}"/>\n${items.map(i => i.xml).join('\n')}\n</channel></rss>`
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>${escXml(ui.siteTitle)} (${lang})</title><link>${escXml(SITE_URL + '/' + lang + '/')}</link><description>${escXml(ui.siteTitle)}</description><language>${lang}</language><generator>build.mjs</generator><lastBuildDate>${lastBuild}</lastBuildDate><ttl>60</ttl><atom:link rel="self" type="application/rss+xml" href="${escXml(selfUrl)}"/>\n${items.map(i => i.xml).join('\n')}\n</channel></rss>`
   const out = path.join(PUBLIC_DIR, lang, 'rss.xml')
   fs.mkdirSync(path.dirname(out), { recursive: true })
   fs.writeFileSync(out, xml)
