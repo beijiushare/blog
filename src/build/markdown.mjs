@@ -6,9 +6,26 @@ import { SVG } from 'mathjax-full/js/output/svg.js'
 import { liteAdaptor } from 'mathjax-full/js/adaptors/liteAdaptor.js'
 import { RegisterHTMLHandler } from 'mathjax-full/js/handlers/html.js'
 import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages.js'
-import { esc } from './config.mjs'
+import { esc, BASE } from './config.mjs'
 
 const md = new MarkdownIt({ html: true, linkify: true })
+
+const defaultLinkOpen = md.renderer.rules.link_open ||
+  ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options))
+md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+  const token = tokens[idx]
+  const i = token.attrIndex('href')
+  if (i >= 0) {
+    const href = token.attrs[i][1]
+    if (/^https?:\/\//.test(href)) {
+      if (token.attrIndex('target') === -1) token.attrPush(['target', '_blank'])
+      if (token.attrIndex('rel') === -1) token.attrSet('rel', 'noopener')
+    } else if (href.startsWith('/') && !href.startsWith('//') && href !== BASE && href.indexOf(BASE + '/') !== 0) {
+      token.attrs[i][1] = BASE + href
+    }
+  }
+  return defaultLinkOpen(tokens, idx, options, env, self)
+}
 let toc = []
 const slugSeen = new Map()
 md.core.ruler.push('heading_ids', state => {
