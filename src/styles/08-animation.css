@@ -1,6 +1,6 @@
 /*! 08-animation.css — htmx 换页动画、主题 View Transition 擦除、reduced-motion 降级 */
 #content{transition:opacity .18s ease,transform .18s ease}
-#content.htmx-swapping{opacity:0;transform:translateY(8px)}
+#content.htmx-swapping{opacity:0}
 #content.htmx-added{opacity:0}
 #content.htmx-settling{transition:opacity .18s ease,transform .18s ease}
 

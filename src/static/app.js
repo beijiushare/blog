@@ -82,7 +82,11 @@
     if (!a || location.hash) return
     var v = null
     try { v = sessionStorage.getItem('paneScroll:' + location.pathname) } catch (e) {}
-    if (v) a.scrollTop = parseInt(v, 10) || 0
+    if (!v) return
+    var prev = a.style.scrollBehavior
+    a.style.scrollBehavior = 'auto'
+    a.scrollTop = parseInt(v, 10) || 0
+    a.style.scrollBehavior = prev
   }
 
   document.addEventListener('scroll', function (e) {
