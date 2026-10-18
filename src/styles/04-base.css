@@ -1,5 +1,5 @@
 /*! 04-base.css — 基础元素与工具类（hugo-book book.css 裁剪） */
-html{font-size:var(--font-size);scroll-behavior:smooth;touch-action:manipulation;scrollbar-gutter:stable}
+html{font-size:var(--font-size);scroll-behavior:smooth;touch-action:manipulation}
 body{min-width:var(--body-min-width);color:var(--body-font-color);background:var(--body-background) var(--body-background-tint);font-weight:var(--body-font-weight);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 h1,h2,h3,h4,h5,h6{font-weight:inherit}
 a{text-decoration:none}
