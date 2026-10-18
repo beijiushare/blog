@@ -9,4 +9,6 @@
   body:has(#menu-control:checked) #sidebar{transform:none}
   body:has(#menu-control:checked) #menu-overlay{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:15}
   .menu-btn{display:inline-block}
+  #controls.seg-on .seg{display:none}
+  #controls.seg-on select{display:inline-block}
 }

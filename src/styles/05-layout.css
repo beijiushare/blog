@@ -27,6 +27,13 @@ input.toggle:checked+label+ul{display:block}
 
 #controls{display:flex;gap:var(--space-8);align-items:center;flex:none;min-width:0}
 #controls select{font:inherit;font-size:var(--font-size-smaller);color:var(--body-font-color);background:var(--gray-100);border:var(--space-1) solid var(--gray-200);border-radius:var(--border-radius);padding:var(--space-4) var(--space-8);cursor:pointer;appearance:auto}
+.seg{display:none;align-items:center;gap:2px;padding:2px;background:var(--seg-track);border:var(--space-1) solid var(--seg-border);border-radius:.5rem}
+.seg button{font:inherit;font-size:var(--font-size-smaller);color:var(--body-font-color);background:transparent;border:0;border-radius:.375rem;padding:2px var(--space-8);line-height:1.5;cursor:pointer}
+.seg button:hover{background:rgba(127,127,127,.18)}
+.seg button[aria-pressed="true"]{background:var(--seg-thumb);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.seg button[aria-pressed="true"]:hover{background:var(--seg-thumb)}
+#controls.seg-on .seg{display:flex}
+#controls.seg-on select{display:none}
 #menu-control{display:none}
 .menu-btn{display:none;width:2rem;height:2rem;cursor:pointer;position:relative;flex:none}
 .menu-btn::before,.menu-btn::after{content:"";position:absolute;left:.35rem;right:.35rem;height:2px;background:var(--body-font-color);border-radius:1px}

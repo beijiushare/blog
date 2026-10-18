@@ -15,4 +15,7 @@
   --toc-width:14rem;
   --toc-link-color:#0F5FBF;
   --toc-font-size:.9rem;
+  --seg-track:var(--gray-100);
+  --seg-border:var(--gray-200);
+  --seg-thumb:#fff;
 }

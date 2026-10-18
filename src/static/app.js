@@ -7,6 +7,7 @@
   function applyTheme (t) {
     docEl.setAttribute('data-theme', t)
     try { localStorage.setItem('theme', t) } catch (e) {}
+    syncThemeControls()
   }
 
   function swipeTheme (t) {
@@ -39,10 +40,70 @@
     transition.finished.catch(function () {})
   }
 
-  function syncThemeSelect () {
+  function syncThemeControls () {
+    var t = docEl.getAttribute('data-theme') || 'light'
     var s = document.getElementById('theme-select')
-    if (s) s.value = docEl.getAttribute('data-theme') || 'light'
+    if (s) s.value = t
+    var seg = document.getElementById('theme-seg')
+    if (seg) markSeg(seg, t)
   }
+
+  function markSeg (seg, v) {
+    var bs = seg.querySelectorAll('button')
+    for (var i = 0; i < bs.length; i++) {
+      bs[i].setAttribute('aria-pressed', bs[i].getAttribute('data-value') === v ? 'true' : 'false')
+    }
+  }
+
+  /* segmented controls built from the selects (desktop shows seg, mobile keeps selects) */
+  function buildSegs () {
+    var controls = document.getElementById('controls')
+    if (!controls || controls.querySelector('.seg')) return
+    var pairs = [['lang-select', 'lang-seg'], ['theme-select', 'theme-seg']]
+    for (var i = 0; i < pairs.length; i++) {
+      var sel = document.getElementById(pairs[i][0])
+      if (!sel) continue
+      var seg = document.createElement('div')
+      seg.className = 'seg'
+      seg.id = pairs[i][1]
+      seg.setAttribute('role', 'group')
+      var al = sel.getAttribute('aria-label')
+      if (al) seg.setAttribute('aria-label', al)
+      for (var j = 0; j < sel.options.length; j++) {
+        var o = sel.options[j]
+        var b = document.createElement('button')
+        b.type = 'button'
+        b.textContent = o.textContent
+        b.setAttribute('data-value', o.value)
+        var dl = o.getAttribute('data-lang')
+        if (dl) b.setAttribute('data-lang', dl)
+        b.setAttribute('aria-pressed', o.selected ? 'true' : 'false')
+        seg.appendChild(b)
+      }
+      controls.insertBefore(seg, sel)
+    }
+    controls.classList.add('seg-on')
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target || !e.target.closest) return
+    var b = e.target.closest('button[data-value]')
+    if (!b || !b.parentNode || !b.parentNode.classList.contains('seg')) return
+    var seg = b.parentNode
+    if (seg.id === 'theme-seg') {
+      swipeTheme(b.getAttribute('data-value'))
+    } else if (seg.id === 'lang-seg') {
+      var lang = b.getAttribute('data-lang')
+      if (!lang) return
+      try { localStorage.setItem('lang', lang) } catch (err) {}
+      var s = document.getElementById('lang-select')
+      if (s) {
+        for (var i = 0; i < s.options.length; i++) {
+          if (s.options[i].getAttribute('data-lang') === lang) { location.href = s.options[i].value; return }
+        }
+      }
+    }
+  })
 
   /* lang options live in topbar (outside swap area): rebuild values for current path */
   function syncLangOptions () {
@@ -168,8 +229,7 @@
   document.body.addEventListener('htmx:afterSwap', function () {
     var mc = document.getElementById('menu-control')
     if (mc) mc.checked = false
-    syncThemeSelect()
-    syncLangOptions()
+    initControls()
     restoreScroll()
     initToc()
     updateTreeActive()
@@ -199,10 +259,14 @@
   }
 
   /* ---- init ---- */
-  syncThemeSelect()
-  syncLangOptions()
+  function initControls () {
+    syncThemeControls()
+    syncLangOptions()
+    buildSegs()
+  }
+  initControls()
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { syncThemeSelect(); syncLangOptions(); initToc(); restoreScroll() })
+    document.addEventListener('DOMContentLoaded', function () { initControls(); initToc(); restoreScroll() })
   } else {
     initToc()
     restoreScroll()
