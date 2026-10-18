@@ -1,6 +1,8 @@
 /*! 09-responsive.css — ≤56rem 移动端：整页滚动 + 抽屉导航 */
 @media screen and (max-width:56rem){
   html,body{height:auto;overflow:visible}
+  #topbar{flex-wrap:wrap}
+  #topbar .brand{order:-1;flex-basis:100%;text-align:center;font-size:1.25rem}
   .layout{flex:none;min-height:100vh;grid-template-columns:minmax(0,1fr)}
   #content{overflow:visible;min-height:0;grid-template-columns:minmax(0,1fr);grid-template-rows:auto;padding-right:var(--space-16)}
   #content>#rightbar{display:none}
