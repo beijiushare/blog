@@ -1,6 +1,6 @@
 /*! 01-normalize.css — modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 *,::before,::after{box-sizing:border-box}
-html{font-family:'宋体',SimSun,'PingFang SC','苹方','Microsoft YaHei','微软雅黑','Apple Color Emoji','Segoe UI Emoji',serif;line-height:1.15;-webkit-text-size-adjust:100%;tab-size:4}
+html{font-family:'PingFang SC','苹方','Microsoft YaHei','微软雅黑','宋体',SimSun,'Apple Color Emoji','Segoe UI Emoji',serif;line-height:1.15;-webkit-text-size-adjust:100%;tab-size:4}
 body{margin:0}
 b,strong{font-weight:bolder}
 code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:1em}
