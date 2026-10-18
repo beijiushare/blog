@@ -1,9 +1,6 @@
 /* app.js — theme / language / TOC highlight / htmx animation binding */
 (function () {
   var docEl = document.documentElement
-  var themeSelect = document.getElementById('theme-select')
-  var langSelect = document.getElementById('lang-select')
-  var menuControl = document.getElementById('menu-control')
 
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -42,23 +39,23 @@
     transition.finished.catch(function () {})
   }
 
-  if (themeSelect) {
-    try {
-      var stored = localStorage.getItem('theme')
-      if (stored) themeSelect.value = stored
-    } catch (e) {}
-    themeSelect.addEventListener('change', function () {
-      swipeTheme(themeSelect.value)
-    })
+  function syncThemeSelect () {
+    var s = document.getElementById('theme-select')
+    if (s) s.value = docEl.getAttribute('data-theme') || 'light'
   }
 
-  if (langSelect) {
-    langSelect.addEventListener('change', function () {
-      var opt = langSelect.options[langSelect.selectedIndex]
-      try { localStorage.setItem('lang', opt.getAttribute('data-lang') || opt.value) } catch (e) {}
-      location.href = langSelect.value
-    })
-  }
+  /* delegated change binding: survives htmx swap (nodes rebuilt each page) */
+  document.addEventListener('change', function (e) {
+    var el = e.target
+    if (!el || !el.id) return
+    if (el.id === 'theme-select') {
+      swipeTheme(el.value)
+    } else if (el.id === 'lang-select') {
+      var opt = el.options[el.selectedIndex]
+      try { localStorage.setItem('lang', opt.getAttribute('data-lang') || opt.value) } catch (err) {}
+      location.href = el.value
+    }
+  })
 
   /* ---- TOC highlight (IntersectionObserver) ---- */
   var tocObserver = null
@@ -100,7 +97,9 @@
   }
 
   document.body.addEventListener('htmx:afterSwap', function () {
-    if (menuControl) menuControl.checked = false
+    var mc = document.getElementById('menu-control')
+    if (mc) mc.checked = false
+    syncThemeSelect()
     initToc()
     updateTreeActive()
   })
@@ -125,8 +124,9 @@
   }
 
   /* ---- init ---- */
+  syncThemeSelect()
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initToc)
+    document.addEventListener('DOMContentLoaded', function () { syncThemeSelect(); initToc() })
   } else {
     initToc()
   }

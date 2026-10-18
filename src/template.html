@@ -26,23 +26,25 @@
       </nav>
     </aside>
 
-    <header id="topbar">
-      <input type="checkbox" id="menu-control" class="toggle" aria-label="Menu">
-      <label for="menu-control" class="menu-btn" aria-hidden="true"></label>
-      <div id="controls">
-        <select id="lang-select" aria-label="language">
-{{LANG_OPTIONS}}
-        </select>
-        <select id="theme-select" aria-label="theme">
-          <option value="light">{{THEME_LIGHT}}</option>
-          <option value="dark">{{THEME_DARK}}</option>
-          <option value="auto">{{THEME_AUTO}}</option>
-        </select>
-      </div>
-    </header>
-
     <main id="content" hx-history-elt>
 {{CONTENT}}
+      <aside id="rightbar">
+        <div id="controls">
+          <input type="checkbox" id="menu-control" class="toggle" aria-label="Menu">
+          <label for="menu-control" class="menu-btn" aria-hidden="true"></label>
+          <select id="lang-select" aria-label="language">
+{{LANG_OPTIONS}}
+          </select>
+          <select id="theme-select" aria-label="theme">
+            <option value="light">{{THEME_LIGHT}}</option>
+            <option value="dark">{{THEME_DARK}}</option>
+            <option value="auto">{{THEME_AUTO}}</option>
+          </select>
+        </div>
+        <nav class="toc" aria-label="toc">
+{{TOC}}
+        </nav>
+      </aside>
     </main>
   </div>
 

@@ -13,5 +13,7 @@
   --container-max-width:90rem;
   --menu-width:16rem;
   --toc-width:16rem;
+  --toc-link-color:#0F5FBF;
+  --toc-font-size:.9rem;
   --content-max-width:46rem;
 }

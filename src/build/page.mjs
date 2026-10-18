@@ -54,9 +54,23 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
     contentHtml = `<div class="untranslated"><p>${esc(ui.untranslated)}</p><p><a href="${pageUrl(srcLang, relPath)}">${esc(ui.viewOriginal)}</a></p></div>`
   }
 
-  const tocHtml = tocItems.length
-    ? '<ul>' + tocItems.map(t => `<li><a href="#${t.slug}" data-level="${t.level}">${esc(t.text)}</a></li>`).join('') + '</ul>'
-    : ''
+  function tocHtml (items) {
+    if (!items.length) return ''
+    const groups = []
+    for (const t of items) {
+      if (t.level === 2) groups.push({ head: t, kids: [] })
+      else if (groups.length) groups[groups.length - 1].kids.push(t)
+      else groups.push({ head: null, kids: [t] })
+    }
+    const li = t => `<li><a href="#${t.slug}">${esc(t.text)}</a></li>`
+    return '<ul>' + groups.map(g => {
+      const kids = g.kids.map(li).join('')
+      if (!g.head) return kids
+      return `<li><a href="#${g.head.slug}">${esc(g.head.text)}</a>` +
+        (kids ? `<ul>${kids}</ul>` : '') + '</li>'
+    }).join('') + '</ul>'
+  }
+  const toc = tocHtml(tocItems)
 
   const html = TEMPLATE
     .replaceAll('{{HTML_LANG}}', lang)
@@ -71,7 +85,8 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
     .replaceAll('{{THEME_LIGHT}}', esc(ui.theme.light))
     .replaceAll('{{THEME_DARK}}', esc(ui.theme.dark))
     .replaceAll('{{THEME_AUTO}}', esc(ui.theme.auto))
-    .replaceAll('{{CONTENT}}', `<article class="markdown">${contentHtml}</article><aside class="toc">${tocHtml}</aside>`)
+    .replaceAll('{{CONTENT}}', `<article class="markdown">${contentHtml}</article>`)
+    .replaceAll('{{TOC}}', toc)
 
   const out = outFile(lang, relPath)
   fs.mkdirSync(path.dirname(out), { recursive: true })
