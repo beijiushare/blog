@@ -5,6 +5,7 @@
 .markdown h1{font-size:1.75em}
 .markdown h2{font-size:1.5em;margin-top:var(--space-32)}
 .markdown h3{font-size:1.25em}
+.markdown .page-meta{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-16);margin:calc(var(--space-8) * -1) 0 var(--space-16);font-size:.9em;color:var(--gray-500)}
 .markdown ul,.markdown ol,.markdown pre,.markdown table,.markdown details{margin:var(--space-16) 0}
 .markdown p{margin:var(--space-16) 0 1em}
 .markdown ul,.markdown ol{padding-inline-start:1.5em}

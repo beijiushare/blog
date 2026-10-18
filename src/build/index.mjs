@@ -18,6 +18,7 @@ async function main () {
     for (const [k, v] of pages.zh) {
       const data = {}
       for (const [dk, dv] of Object.entries(v.data)) data[dk] = typeof dv === 'string' ? conv(dv) : dv
+      data.__gen = true
       zhHant.set(k, { data, body: conv(v.body) })
     }
     pages['zh-Hant'] = zhHant

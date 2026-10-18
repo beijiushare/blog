@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { BASE, SITE_URL, TEMPLATE, UI, esc, pageUrl, outFile } from './config.mjs'
+import { BASE, SITE_URL, TEMPLATE, UI, esc, pageUrl, outFile, REPO } from './config.mjs'
 import { renderMarkdown } from './markdown.mjs'
 
 export function treeHtml (node, lang, pages, currentPath, depth = 0) {
@@ -46,6 +46,13 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
     const r = renderMarkdown(page.body)
     contentHtml = r.html
     tocItems = r.tocItems
+    const d = page.data.date
+    const dateStr = d ? (d instanceof Date ? d.toISOString().slice(0, 10) : String(d).slice(0, 10)) : ''
+    const editLang = page.data.__gen ? 'zh' : lang
+    const meta = '<div class="page-meta">' +
+      (dateStr ? `<time datetime="${dateStr}">${dateStr}</time>` : '<span></span>') +
+      `<a href="https://github.com/${REPO}/edit/master/content/${editLang}/${relPath}.md" target="_blank" rel="noopener">${esc(ui.editPage)}</a></div>`
+    contentHtml = contentHtml.includes('</h1>') ? contentHtml.replace('</h1>', '</h1>' + meta) : meta + contentHtml
   } else {
     const srcLang = langs.find(l => pages[l].has(relPath)) || langs[0]
     const srcPage = pages[srcLang].get(relPath)

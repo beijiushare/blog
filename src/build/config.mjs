@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
 export const BASE = '/blog'
 export const SITE_URL = 'https://beijiushare.github.io/blog'
+export const REPO = 'beijiushare/blog'
 export const DEFAULT_LANG = 'zh'
 export const CONTENT_DIR = path.join(ROOT, 'content')
 export const PUBLIC_DIR = path.join(ROOT, 'public')
