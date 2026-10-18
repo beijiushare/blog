@@ -57,6 +57,26 @@
     }
   })
 
+  /* ---- keyboard scroll for middle pane (page is locked on desktop) ---- */
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return
+    var tag = (e.target.tagName || '').toLowerCase()
+    if (tag === 'input' || tag === 'select' || tag === 'textarea' || tag === 'button' || e.target.isContentEditable) return
+    var c = document.getElementById('content')
+    if (!c || c.scrollHeight <= c.clientHeight + 2) return
+    var k = e.key
+    if (k === 'Home') { e.preventDefault(); c.scrollTop = 0; return }
+    if (k === 'End') { e.preventDefault(); c.scrollTop = c.scrollHeight; return }
+    var dir = 0
+    if (k === ' ' || k === 'PageDown' || k === 'ArrowDown') dir = 1
+    else if (k === 'PageUp' || k === 'ArrowUp') dir = -1
+    if (!dir) return
+    e.preventDefault()
+    var step = (k === 'PageDown' || k === 'PageUp') ? c.clientHeight * 0.9
+      : (k === ' ' ? 100 : 60)
+    c.scrollTop += dir * step
+  })
+
   /* ---- TOC highlight (IntersectionObserver) ---- */
   var tocObserver = null
   function initToc () {
