@@ -49,4 +49,5 @@ input.toggle:checked+label+ul{display:block}
 .toc a:hover{text-decoration:underline}
 .toc a.active{font-weight:600}
 
-.untranslated{border:var(--space-1) dashed var(--gray-200);border-radius:var(--border-radius);padding:var(--space-16);color:var(--quote-color);font-weight:500}
+.untranslated{border:2px dashed var(--quote-color);border-radius:var(--border-radius);padding:var(--space-8) var(--space-16)}
+.markdown .untranslated p{margin:var(--space-4) 0}
