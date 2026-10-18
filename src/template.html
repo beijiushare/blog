@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{HTML_LANG}}" data-theme="light">
+<html lang="{{HTML_LANG}}" data-theme="light" data-base="{{BASE}}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,11 +16,26 @@
 {{ALTERNATES}}
 </head>
 <body hx-boost="true" hx-target="#content" hx-select="#content" hx-swap="outerHTML swap:200ms">
+  <header id="topbar">
+    <input type="checkbox" id="menu-control" class="toggle" aria-label="Menu">
+    <label for="menu-control" class="menu-btn" aria-hidden="true"></label>
+    <div class="brand">
+      <a href="{{BASE}}/{{LANG}}/">{{SITE_TITLE}}</a>
+    </div>
+    <div id="controls">
+      <select id="lang-select" aria-label="language">
+{{LANG_OPTIONS}}
+      </select>
+      <select id="theme-select" aria-label="theme">
+        <option value="light">{{THEME_LIGHT}}</option>
+        <option value="dark">{{THEME_DARK}}</option>
+        <option value="auto">{{THEME_AUTO}}</option>
+      </select>
+    </div>
+  </header>
+
   <div class="layout">
     <aside id="sidebar">
-      <div class="brand">
-        <a href="{{BASE}}/{{LANG}}/">{{SITE_TITLE}}</a>
-      </div>
       <nav class="tree" aria-label="menu">
 {{TREE_HTML}}
       </nav>
@@ -29,18 +44,6 @@
     <main id="content" hx-history-elt>
 {{CONTENT}}
       <aside id="rightbar">
-        <div id="controls">
-          <input type="checkbox" id="menu-control" class="toggle" aria-label="Menu">
-          <label for="menu-control" class="menu-btn" aria-hidden="true"></label>
-          <select id="lang-select" aria-label="language">
-{{LANG_OPTIONS}}
-          </select>
-          <select id="theme-select" aria-label="theme">
-            <option value="light">{{THEME_LIGHT}}</option>
-            <option value="dark">{{THEME_DARK}}</option>
-            <option value="auto">{{THEME_AUTO}}</option>
-          </select>
-        </div>
         <nav class="toc" aria-label="toc">
 {{TOC}}
         </nav>
