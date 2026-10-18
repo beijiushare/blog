@@ -41,10 +41,10 @@ input.toggle:checked+label+ul{display:block}
 .menu-btn::after{bottom:.65rem}
 #menu-overlay{display:none}
 
-.toc{font-size:var(--toc-font-size)}
+.toc{font-size:var(--toc-font-size);line-height:1.05}
 .toc ul{padding:0;margin:0;list-style:none;padding-inline-start:1.25em}
 .toc>ul{padding-inline-start:0}
-.toc li{margin:.1em 0}
+.toc li{margin:.05em 0}
 .toc a{display:block;color:var(--toc-link-color);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .toc a:hover{text-decoration:underline}
 .toc a.active{font-weight:600}
