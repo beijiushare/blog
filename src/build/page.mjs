@@ -22,7 +22,7 @@ export function treeHtml (node, lang, pages, currentPath, depth = 0) {
       ? `<a href="${pageUrl(lang, child.path)}" title="${esc(title)}">${esc(title)}</a>`
       : `<span title="${esc(child.name)}">${esc(child.name)}</span>`
     html += `<li><input class="toggle" type="checkbox" id="${id}"${checked}>` +
-      `<label for="${id}">${labelInner}<span class="chevron"></span></label>` +
+      `<label for="${id}"><span class="chevron"></span>${labelInner}</label>` +
       treeHtml(child, lang, pages, currentPath, depth + 1) + '</li>'
   }
   return html + '</ul>'
