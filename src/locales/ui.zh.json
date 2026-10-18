@@ -3,7 +3,7 @@
   "untranslated": "暂未翻译",
   "viewOriginal": "查看原文",
   "theme": { "light": "亮", "dark": "暗", "auto": "自动" },
-  "language": { "zh": "中文", "en": "English" },
+  "language": { "zh": "简中", "en": "English", "zh-Hant": "繁中" },
   "toc": "本页目录",
   "readMore": "阅读 →"
 }

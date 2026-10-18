@@ -3,7 +3,7 @@
   "untranslated": "Not translated yet",
   "viewOriginal": "View original",
   "theme": { "light": "Light", "dark": "Dark", "auto": "Auto" },
-  "language": { "zh": "中文", "en": "English" },
+  "language": { "zh": "简中", "en": "English", "zh-Hant": "繁中" },
   "toc": "On this page",
   "readMore": "Read →"
 }

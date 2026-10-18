@@ -17,7 +17,7 @@ export const TEMPLATE = fs.readFileSync(TEMPLATE_PATH, 'utf8')
 
 export const UI = {}
 for (const f of fs.readdirSync(UI_DIR)) {
-  if (/^ui\.\w+\.json$/.test(f)) {
+  if (/^ui\.[\w-]+\.json$/.test(f)) {
     UI[f.slice(3, -5)] = JSON.parse(fs.readFileSync(path.join(UI_DIR, f), 'utf8'))
   }
 }
