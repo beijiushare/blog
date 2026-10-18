@@ -5,8 +5,8 @@
   "type": "module",
   "description": "极简静态博客生成器（build.mjs + htmx 局部刷新）",
   "scripts": {
-    "build": "node build.mjs",
-    "serve": "node build.mjs --serve"
+    "build": "node src/build/index.mjs",
+    "serve": "node src/build/index.mjs --serve"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
