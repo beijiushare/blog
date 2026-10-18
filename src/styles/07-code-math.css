@@ -1,10 +1,10 @@
 /*! 07-code-math.css — Shiki 双主题代码高亮与 MathJax SVG */
-.shiki,.shiki span{color:var(--shiki-light);background-color:var(--shiki-light-bg)}
+.shiki,.shiki span{color:var(--shiki-light);background-color:#F6F8FA}
 :root[data-theme='dark'] .shiki,:root[data-theme='dark'] .shiki span{color:var(--shiki-dark);background-color:var(--shiki-dark-bg)}
 @media (prefers-color-scheme:dark){
   :root[data-theme='auto'] .shiki,:root[data-theme='auto'] .shiki span{color:var(--shiki-dark);background-color:var(--shiki-dark-bg)}
 }
-.markdown pre.shiki{background:var(--shiki-light-bg);border-radius:var(--border-radius);padding:var(--space-16);overflow-x:auto;line-height:1.5}
+.markdown pre.shiki{background:#F6F8FA;border-radius:var(--border-radius);padding:var(--space-16);overflow-x:auto;line-height:1.5}
 :root[data-theme='dark'] .markdown pre.shiki{background:var(--shiki-dark-bg)}
 @media (prefers-color-scheme:dark){:root[data-theme='auto'] .markdown pre.shiki{background:var(--shiki-dark-bg)}}
 
