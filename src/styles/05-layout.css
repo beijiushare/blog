@@ -42,8 +42,8 @@ input.toggle:checked+label+ul{display:block}
 #menu-overlay{display:none}
 
 .toc{font-size:var(--toc-font-size)}
-.toc ul{padding:0;margin:0;list-style:disc;padding-inline-start:1.25em}
-.toc>ul{padding-inline-start:var(--space-16)}
+.toc ul{padding:0;margin:0;list-style:none;padding-inline-start:1.25em}
+.toc>ul{padding-inline-start:0}
 .toc li{margin:.3em 0}
 .toc a{display:block;color:var(--toc-link-color);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .toc a:hover{text-decoration:underline}
