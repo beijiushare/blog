@@ -23,6 +23,12 @@ async function main () {
     pages['zh-Hant'] = zhHant
     langs.push('zh-Hant')
   }
+  const langOrder = ['zh', 'zh-Hant', 'en']
+  langs.sort((a, b) => {
+    const ia = langOrder.indexOf(a)
+    const ib = langOrder.indexOf(b)
+    return (ia === -1 ? langOrder.length : ia) - (ib === -1 ? langOrder.length : ib)
+  })
   const tree = buildTree(pages, langs)
   await ensureHighlighter()
 
