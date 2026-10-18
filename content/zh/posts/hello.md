@@ -34,6 +34,20 @@ $$
 
 </details>
 
+<details>
+<summary>点我展开</summary>
+
+折叠内容，纯原生 `details`，无 JS。
+
+</details>
+
+<details>
+<summary>点我展开</summary>
+
+折叠内容，纯原生 `details`，无 JS。
+
+</details>
+
 ## 引用与表格
 
 > 引用块示例。
