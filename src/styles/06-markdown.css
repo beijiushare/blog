@@ -1,4 +1,4 @@
-/*! 06-markdown.css — 正文排版（hugo-book markdown.css 裁剪，details 极简边框版） */
+/*! 06-markdown.css — 正文排版（hugo-book markdown.css 裁剪，details 手风琴版） */
 .markdown{line-height:1.5}
 .markdown>*:first-child{margin-top:0}
 .markdown h1,.markdown h2,.markdown h3,.markdown h4,.markdown h5,.markdown h6{margin:var(--space-16) 0;line-height:1.4;scroll-margin-top:var(--space-16)}
@@ -19,9 +19,8 @@
 .markdown th{background:var(--gray-100);font-weight:600}
 .markdown img{border-radius:var(--border-radius)}
 
-.markdown details{border:var(--space-1) solid var(--gray-200);border-radius:var(--border-radius);padding:var(--space-16)}
-.markdown details summary{cursor:pointer;line-height:1.6;list-style:none}
+.markdown details{border-bottom:var(--space-1) solid var(--gray-200);margin:0}
+.markdown details summary{cursor:pointer;line-height:1.6;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:var(--space-8);padding:var(--space-16) 0;font-weight:500}
 .markdown details summary::-webkit-details-marker{display:none}
-.markdown details summary::before{content:"\203A";display:inline-block;margin-inline-end:var(--space-8);transition:transform .15s ease;font-weight:600}
-.markdown details[open] summary::before{transform:rotate(90deg)}
-.markdown details>*:last-child{margin-bottom:0}
+.markdown details summary::after{content:"";flex:none;width:.5em;height:.5em;border:solid currentColor;border-width:0 1px 1px 0;transform:rotate(45deg);transition:transform .2s ease}
+.markdown details[open] summary::after{transform:rotate(225deg)}
