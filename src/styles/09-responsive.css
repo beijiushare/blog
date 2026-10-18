@@ -1,6 +1,8 @@
 /*! 09-responsive.css — ≤56rem 移动端：右栏变顶部控制条 + 抽屉导航 */
 @media screen and (max-width:56rem){
-  #content{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
+  html,body{height:auto;overflow:visible}
+  .layout{height:auto;min-height:100vh}
+  #content{overflow:visible;min-height:0;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
   #content>#rightbar{grid-column:1;grid-row:1;position:static;height:auto;flex-direction:row;padding:0;border-inline-start:0;border-bottom:var(--space-1) solid var(--gray-200)}
   #rightbar .toc{display:none}
   #rightbar #controls{width:100%;padding-block:var(--space-16);border-bottom:0}
