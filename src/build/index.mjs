@@ -11,7 +11,7 @@ import { serve } from './serve.mjs'
 async function main () {
   const t0 = Date.now()
   const siteTitle = UI.zh.siteTitle || 'Blog'
-  const { langs, pages } = scanContent()
+  const { langs, pages, orders } = scanContent()
   if (pages.zh && !langs.includes('zh-Hant')) {
     const conv = Converter({ from: 'cn', to: 'tw' })
     const zhHant = new Map()
@@ -30,7 +30,7 @@ async function main () {
     const ib = langOrder.indexOf(b)
     return (ia === -1 ? langOrder.length : ia) - (ib === -1 ? langOrder.length : ib)
   })
-  const tree = buildTree(pages, langs)
+  const tree = buildTree(pages, langs, orders)
   await ensureHighlighter()
 
   fs.rmSync(PUBLIC_DIR, { recursive: true, force: true })

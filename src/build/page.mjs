@@ -4,7 +4,7 @@ import { BASE, SITE_URL, TEMPLATE, UI, esc, pageUrl, outFile, REPO } from './con
 import { renderMarkdown } from './markdown.mjs'
 
 export function treeHtml (node, lang, pages, currentPath, depth = 0) {
-  const kids = [...node.children.values()].sort((a, b) => a.name.localeCompare(b.name))
+  const kids = [...node.children.values()]
   if (!kids.length) return ''
   let html = '<ul>'
   for (const child of kids) {
