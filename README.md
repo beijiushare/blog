@@ -27,7 +27,7 @@ draft: true   # 跳过构建
 ---
 ```
 
-- 路径即 URL：`content/zh/posts/foo.md` → `/blog/zh/posts/foo/`
+- 路径即 URL：`content/zh/posts/foo.md` → `/blog/zh/posts/foo/`（`/blog` 即部署子路径；完整地址 `beijiushare.github.io/blog/zh/posts/foo/`，不会出现 `/blog/blog/`）
 - `index.md` 为所在目录首页
 - 某语言缺该页时自动生成"暂未翻译"占位页，语言切换不会 404
 - 公式 `$...$` / `$$...$$`（构建期 MathJax→SVG）、代码 Shiki 双主题高亮、原文 `<details>` 直通
