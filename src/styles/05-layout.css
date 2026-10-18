@@ -8,7 +8,7 @@ body{display:flex;flex-direction:column}
 #content{grid-row:1;grid-column:2;display:grid;grid-template-columns:minmax(0,1fr) var(--toc-width);grid-template-rows:minmax(0,1fr);column-gap:0;padding:0 0 0 var(--space-16);min-width:0;min-height:0}
 #content>article.markdown{grid-column:1;width:100%;padding-block:var(--space-16);overflow-y:auto;scroll-behavior:smooth;scrollbar-gutter:stable}
 #content>#rightbar{grid-column:2;display:flex;flex-direction:column;background:var(--body-background);border-inline-start:var(--space-1) solid var(--gray-200);padding:0 0 var(--space-16) var(--space-16);overscroll-behavior:contain}
-#rightbar .toc{flex:1;min-height:0;overflow-y:auto;padding-top:var(--space-16);padding-right:var(--space-16)}
+#rightbar .toc{flex:1;min-height:0;overflow-y:auto;padding-top:var(--space-16)}
 
 #topbar .brand{font-size:1.15rem;min-width:0}
 #topbar .brand a[href]{color:var(--body-font-color);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
