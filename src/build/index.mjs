@@ -38,8 +38,9 @@ async function main () {
   const union = unionKeys(pages, langs)
 
   for (const lang of langs) {
+    const langSiteTitle = (UI[lang] || UI.zh).siteTitle || siteTitle
     for (const rel of union) {
-      await renderPage(lang, rel, pages, langs, tree, siteTitle)
+      await renderPage(lang, rel, pages, langs, tree, langSiteTitle)
     }
     genRss(lang, pages)
   }
