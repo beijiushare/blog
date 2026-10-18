@@ -35,14 +35,22 @@ draft: true   # 跳过构建
 ## 结构
 
 ```
-content/<lang>/**.md   源内容（zh / en）
-template.html          页面骨架（{{TOKEN}} 替换）
-style.css              样式（hugo-book 裁剪 + 布局层）
-build.mjs              构建 + 本地服务
-static/                htmx.min.js / app.js
-ui.<lang>.json         界面文案
-public/                构建产物（gitignore）
-.temp/                 过程资料（gitignore）
+content/<lang>/**.md       源内容（zh / en），主要编辑这里
+src/
+├── build/                 构建脚本
+│   ├── index.mjs          编排入口（--serve 分支）
+│   ├── config.mjs         BASE/SITE_URL/路径/UI 文案
+│   ├── content.mjs        扫描 md + 并集树
+│   ├── markdown.mjs       markdown-it / TOC / 公式 / Shiki
+│   ├── page.mjs           树 HTML + 模板替换 + 占位页
+│   ├── rss.mjs            RSS 2.0 生成
+│   └── serve.mjs          本地 HTTP 服务
+├── template.html          页面骨架（{{TOKEN}} 占位）
+├── locales/ui.<lang>.json 界面文案
+├── styles/*.css           按文件名序拼接 → public/style.css
+└── static/                htmx.min.js / app.js（原样拷贝）
+public/                    构建产物（gitignore）
+.temp/                     过程资料（gitignore）
 .github/workflows/deploy.yml  push master 自动部署
 ```
 
