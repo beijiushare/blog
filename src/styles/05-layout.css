@@ -6,7 +6,7 @@ body{display:flex;flex-direction:column}
 .layout{display:grid;grid-template-columns:var(--menu-width) minmax(0,1fr);grid-template-rows:minmax(0,1fr);flex:1;min-height:0;max-width:var(--container-max-width);margin:0 auto;width:100%}
 #sidebar{grid-row:1;grid-column:1;height:100%;overflow-y:auto;overscroll-behavior:contain;padding:var(--space-16);font-size:var(--font-size-smaller);border-inline-end:var(--space-1) solid var(--gray-200)}
 #content{grid-row:1;grid-column:2;display:grid;grid-template-columns:minmax(0,1fr) var(--toc-width);grid-template-rows:minmax(0,1fr);column-gap:0;padding:0 0 0 var(--space-16);min-width:0;min-height:0}
-#content>article.markdown{grid-column:1;width:100%;padding-block:var(--space-16);overflow-y:auto;scroll-behavior:smooth;scrollbar-gutter:stable}
+#content>article.markdown{grid-column:1;width:100%;padding-block:var(--space-16);padding-inline-end:var(--space-16);overflow-y:auto;scroll-behavior:smooth;scrollbar-gutter:stable}
 #content>#rightbar{grid-column:2;display:flex;flex-direction:column;background:var(--body-background);border-inline-start:var(--space-1) solid var(--gray-200);padding:0 0 var(--space-16) var(--space-8);overscroll-behavior:contain}
 #rightbar .toc{flex:1;min-height:0;overflow-y:auto;padding-top:var(--space-16)}
 
