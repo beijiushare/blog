@@ -1,12 +1,12 @@
 /*! 06-markdown.css — 正文排版（hugo-book markdown.css 裁剪，details 极简边框版） */
-.markdown{line-height:1.7}
+.markdown{line-height:1.5}
 .markdown>*:first-child{margin-top:0}
 .markdown h1,.markdown h2,.markdown h3,.markdown h4,.markdown h5,.markdown h6{margin:var(--space-16) 0;line-height:1.4;scroll-margin-top:var(--space-16)}
 .markdown h1{font-size:1.75em}
 .markdown h2{font-size:1.5em;border-bottom:var(--space-1) solid var(--gray-200);padding-bottom:.25em}
 .markdown h3{font-size:1.25em}
 .markdown ul,.markdown ol,.markdown pre,.markdown table,.markdown details{margin:var(--space-16) 0}
-.markdown p{margin:var(--space-16) 0 1.7em}
+.markdown p{margin:var(--space-16) 0 1.2em}
 .markdown ul,.markdown ol{padding-inline-start:1.5em}
 .markdown li+li{margin-top:.25em}
 .markdown a[href]{text-decoration:underline;text-underline-offset:2px}
