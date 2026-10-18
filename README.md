@@ -1,12 +1,12 @@
 # blog
 
-极简静态博客：`build.mjs` 构建 + htmx 局部刷新 + hugo-book 样式，部署于 GitHub Pages。
+极简静态博客：`src/build/`（入口 index.mjs）构建 + htmx 局部刷新 + hugo-book 样式，部署于 GitHub Pages。
 
 ## 命令
 
 ```bash
 npm install        # 首次安装依赖
-npm run build      # 编译：content/ → public/（约 200ms）
+npm run build      # 编译：content/ → public/（3 语言约 400ms）
 npm run serve      # 预览：构建后启动本地服务
 ```
 
@@ -31,11 +31,18 @@ draft: true   # 跳过构建
 - `index.md` 为所在目录首页
 - 某语言缺该页时自动生成"暂未翻译"占位页，语言切换不会 404
 - 公式 `$...$` / `$$...$$`（构建期 MathJax→SVG）、代码 Shiki 双主题高亮、原文 `<details>` 直通
+- 标题自动编号：`##`=1、`###`=2.1、`####`=1.1.1；`#####` 及以下不编号、不进目录
+
+## 语言
+
+- 顶栏切换：**简中、繁中、English**（顺序固定于 index.mjs 的 `langOrder`）；桌面为分段选项卡，≤56rem 为下拉框
+- 繁中（zh-Hant）构建期用 opencc-js 从简中自动简→繁转换，不占 content/ 目录；手动创建 content/zh-Hant/ 后自动接管（停止转换）
+- 根路径按浏览器语言落地：zh-TW / zh-HK / zh-MO → 繁中，其他中文 → 简中，非中文 → English
 
 ## 结构
 
 ```
-content/<lang>/**.md       源内容（zh / en），主要编辑这里
+content/<lang>/**.md       源内容（zh / en；zh-Hant 自动转换），主要编辑这里
 src/
 ├── build/                 构建脚本
 │   ├── index.mjs          编排入口（--serve 分支）
@@ -50,7 +57,7 @@ src/
 ├── styles/*.css           按文件名序拼接 → public/style.css
 └── static/                htmx.min.js / app.js（原样拷贝）
 public/                    构建产物（gitignore）
-.temp/                     过程资料（gitignore）
+.temp/、.claude_temp/      过程资料（gitignore）
 .github/workflows/deploy.yml  push master 自动部署
 ```
 
@@ -58,4 +65,4 @@ public/                    构建产物（gitignore）
 
 push `master` 后 Actions 自动 `build` 并发布；仓库 Settings → Pages → Source 选 **GitHub Actions**。
 
-RSS：`/blog/zh/rss.xml`、`/blog/en/rss.xml`（RSS 2.0，含 atom:self）。
+RSS：`/blog/zh/rss.xml`、`/blog/zh-Hant/rss.xml`、`/blog/en/rss.xml`（RSS 2.0，含 atom:self）。
