@@ -8,9 +8,9 @@ export const SITE_URL = 'https://beijiushare.github.io/blog'
 export const DEFAULT_LANG = 'zh'
 export const CONTENT_DIR = path.join(ROOT, 'content')
 export const PUBLIC_DIR = path.join(ROOT, 'public')
-export const TEMPLATE_PATH = path.join(ROOT, 'template.html')
-export const UI_DIR = ROOT
-export const STATIC_DIR = path.join(ROOT, 'static')
+export const TEMPLATE_PATH = path.join(ROOT, 'src', 'template.html')
+export const UI_DIR = path.join(ROOT, 'src', 'locales')
+export const STATIC_DIR = path.join(ROOT, 'src', 'static')
 export const STYLE_PATH = path.join(ROOT, 'style.css')
 
 export const TEMPLATE = fs.readFileSync(TEMPLATE_PATH, 'utf8')
