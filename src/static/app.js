@@ -134,7 +134,7 @@
     if (!links.length) return
     var byId = {}
     links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a })
-    var headings = content.querySelectorAll('.markdown h2[id], .markdown h3[id]')
+    var headings = content.querySelectorAll('.markdown h2[id], .markdown h3[id], .markdown h4[id]')
     if (!headings.length) return
     var visible = new Set()
     tocObserver = new IntersectionObserver(function (entries) {

@@ -13,19 +13,19 @@ let toc = []
 const slugSeen = new Map()
 md.core.ruler.push('heading_ids', state => {
   toc = []
-  let ch = 0
   let h2c = 0
   let h3c = 0
+  let h4c = 0
   state.tokens.forEach((tok, i) => {
     if (tok.type !== 'heading_open') return
     const level = Number(tok.tag.slice(1))
     if (level === 1) {
-      ch++
       h2c = 0
       h3c = 0
+      h4c = 0
       return
     }
-    if (level < 2 || level > 3) return
+    if (level < 2 || level > 4) return
     const inline = state.tokens[i + 1]
     const text = inline.content.replace(/<[^>]*>/g, '').trim()
     let slug = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\u4e00-\u9fff-]/g, '')
@@ -35,15 +35,20 @@ md.core.ruler.push('heading_ids', state => {
     if (n > 1) slug += '-' + n
     let num
     if (level === 2) {
-      if (!ch) ch = 1
       h2c++
       h3c = 0
-      num = `${ch}.${h2c}`
-    } else {
-      if (!ch) ch = 1
+      h4c = 0
+      num = `${h2c}`
+    } else if (level === 3) {
       if (!h2c) h2c = 1
       h3c++
-      num = `${ch}.${h2c}.${h3c}`
+      h4c = 0
+      num = `${h2c}.${h3c}`
+    } else {
+      if (!h2c) h2c = 1
+      if (!h3c) h3c = 1
+      h4c++
+      num = `${h2c}.${h3c}.${h4c}`
     }
     tok.attrSet('id', slug)
     toc.push({ level, text: `${num} ${text}`, slug })

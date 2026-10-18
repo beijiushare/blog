@@ -56,18 +56,36 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
 
   function tocHtml (items) {
     if (!items.length) return ''
-    const groups = []
+    const roots = []
+    let g2 = null
+    let g3 = null
     for (const t of items) {
-      if (t.level === 2) groups.push({ head: t, kids: [] })
-      else if (groups.length) groups[groups.length - 1].kids.push(t)
-      else groups.push({ head: null, kids: [t] })
+      if (t.level === 2) {
+        g2 = { t, subs: [] }
+        roots.push(g2)
+        g3 = null
+      } else if (t.level === 3) {
+        if (!g2) { g2 = { t: null, subs: [] }; roots.push(g2) }
+        g3 = { t, kids: [] }
+        g2.subs.push(g3)
+      } else {
+        if (!g2) { g2 = { t: null, subs: [] }; roots.push(g2) }
+        if (!g3) { g3 = { t: null, kids: [] }; g2.subs.push(g3) }
+        g3.kids.push(t)
+      }
     }
-    const li = t => `<li><a href="#${t.slug}" title="${esc(t.text)}">${esc(t.text)}</a></li>`
-    return '<ul>' + groups.map(g => {
-      const kids = g.kids.map(li).join('')
-      if (!g.head) return kids
-      return `<li><a href="#${g.head.slug}" title="${esc(g.head.text)}">${esc(g.head.text)}</a>` +
-        (kids ? `<ul>${kids}</ul>` : '') + '</li>'
+    const a = t => `<a href="#${t.slug}" title="${esc(t.text)}">${esc(t.text)}</a>`
+    const li = t => `<li>${a(t)}</li>`
+    return '<ul>' + roots.map(g => {
+      const subs = g.subs.map(s => {
+        const kids = s.kids.map(li).join('')
+        return s.t
+          ? `<li>${a(s.t)}${kids ? `<ul>${kids}</ul>` : ''}</li>`
+          : kids
+      }).join('')
+      return g.t
+        ? `<li>${a(g.t)}${subs ? `<ul>${subs}</ul>` : ''}</li>`
+        : subs
     }).join('') + '</ul>'
   }
   const toc = tocHtml(tocItems)
