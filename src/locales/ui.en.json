@@ -1,10 +1,13 @@
 {
-  "siteTitle": "Blog",
+  "siteTitle": "北酒随笔",
   "untranslated": "Not translated yet",
   "viewOriginal": "View original",
   "editPage": "Edit this page",
   "theme": { "light": "Light", "dark": "Dark", "auto": "Auto" },
   "language": { "zh": "简中", "en": "English", "zh-Hant": "繁中" },
   "toc": "On this page",
-  "readMore": "Read →"
+  "readMore": "Read →",
+  "copyFrom": "From: ",
+  "permalink": "Permalink: ",
+  "credit": "Please give credit when reposting"
 }

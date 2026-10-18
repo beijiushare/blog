@@ -167,6 +167,20 @@
     }
   })
 
+  /* ---- append attribution when copying article content ---- */
+  document.addEventListener('copy', function (e) {
+    var sel = window.getSelection()
+    if (!sel || sel.isCollapsed || !sel.toString()) return
+    var node = sel.anchorNode
+    var el = node && (node.nodeType === 1 ? node : node.parentElement)
+    if (!el || !el.closest || !el.closest('article.markdown')) return
+    if (el.closest('.page-footer')) return
+    var f = document.querySelector('article.markdown .page-footer[data-attribution]')
+    if (!f || !e.clipboardData) return
+    e.clipboardData.setData('text/plain', sel.toString() + f.getAttribute('data-attribution'))
+    e.preventDefault()
+  })
+
   /* ---- keyboard scroll for middle pane (page is locked on desktop) ---- */
   document.addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return

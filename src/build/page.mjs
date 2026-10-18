@@ -53,6 +53,13 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
       (dateStr ? `<time datetime="${dateStr}">${dateStr}</time>` : '<span></span>') +
       `<a href="https://github.com/${REPO}/edit/master/content/${editLang}/${relPath}.md" target="_blank" rel="noopener">${esc(ui.editPage)}</a></div>`
     contentHtml = contentHtml.includes('</h1>') ? contentHtml.replace('</h1>', '</h1>' + meta) : meta + contentHtml
+    const pageUrlAbs = `${SITE_URL}/${lang}/${relPath === 'index' ? '' : relPath + '/'}`
+    const attribution = `${ui.copyFrom}${siteTitle}-${title}\n${ui.permalink}${pageUrlAbs}\n${ui.credit}`
+    contentHtml +=
+      `<div class="page-footer" data-attribution="${esc('\n' + attribution)}">` +
+      `<p>${esc(ui.credit)}：${esc(siteTitle)}-${esc(title)}</p>` +
+      `<p>${esc(ui.permalink)}<a href="${pageUrlAbs}" target="_blank" rel="noopener">${esc(pageUrlAbs)}</a></p>` +
+      '</div>'
   } else {
     const srcLang = langs.find(l => pages[l].has(relPath)) || langs[0]
     const srcPage = pages[srcLang].get(relPath)

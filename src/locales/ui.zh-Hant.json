@@ -6,5 +6,8 @@
   "theme": { "light": "亮", "dark": "暗", "auto": "自動" },
   "language": { "zh": "简中", "en": "English", "zh-Hant": "繁中" },
   "toc": "本頁目錄",
-  "readMore": "閱讀 →"
+  "readMore": "閱讀 →",
+  "copyFrom": "內容來自：",
+  "permalink": "本篇連結：",
+  "credit": "轉載請註明出處"
 }
