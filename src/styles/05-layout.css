@@ -13,10 +13,12 @@ body{display:flex;flex-direction:column}
 #topbar .brand a[href]{color:var(--body-font-color);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #topbar #controls{margin-inline-start:auto}
 .tree ul ul{padding-inline-start:var(--space-16)}
-.tree a,.tree label{color:inherit;word-wrap:break-word}
+.tree a,.tree label{color:inherit}
+.tree a,.tree label>span:not(.chevron),.tree label>a{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .tree a.active{color:var(--color-link)}
 .tree label{display:flex;align-items:center;cursor:pointer}
-.tree label>a{flex:auto}
+.tree label>a{flex:1 1 auto}
+.tree label>span:not(.chevron){flex:1 1 auto}
 .tree label .chevron{flex:none;width:.5em;height:.5em;border:solid currentColor;border-width:0 1px 1px 0;transform:rotate(-45deg);transition:transform .15s ease;pointer-events:none}
 input.toggle:checked+label .chevron{transform:rotate(45deg)}
 input.toggle+label+ul{display:none}
@@ -35,7 +37,7 @@ input.toggle:checked+label+ul{display:block}
 .toc ul{padding:0;margin:0;list-style:disc;padding-inline-start:1.25em}
 .toc>ul{padding-inline-start:var(--space-16)}
 .toc li{margin:.3em 0}
-.toc a{display:block;color:var(--toc-link-color)}
+.toc a{display:block;color:var(--toc-link-color);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .toc a:hover{text-decoration:underline}
 .toc a.active{font-weight:600}
 

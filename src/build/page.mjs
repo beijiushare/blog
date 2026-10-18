@@ -13,14 +13,14 @@ export function treeHtml (node, lang, pages, currentPath) {
     if (child.isPage) {
       const active = currentPath === child.path ? ' class="active"' : ''
       const sub = child.children.size ? treeHtml(child, lang, pages, currentPath) : ''
-      html += `<li><a href="${pageUrl(lang, child.path)}"${active}>${esc(title)}</a>${sub}</li>`
+      html += `<li><a href="${pageUrl(lang, child.path)}" title="${esc(title)}"${active}>${esc(title)}</a>${sub}</li>`
       continue
     }
     const id = 'tree-' + lang + '-' + child.path.replace(/[^a-zA-Z0-9]+/g, '-')
     const checked = currentPath === child.path || currentPath.startsWith(child.path + '/') ? ' checked' : ''
     const labelInner = real
-      ? `<a href="${pageUrl(lang, child.path)}">${esc(title)}</a>`
-      : `<span>${esc(child.name)}</span>`
+      ? `<a href="${pageUrl(lang, child.path)}" title="${esc(title)}">${esc(title)}</a>`
+      : `<span title="${esc(child.name)}">${esc(child.name)}</span>`
     html += `<li><input class="toggle" type="checkbox" id="${id}"${checked}>` +
       `<label for="${id}">${labelInner}<span class="chevron"></span></label>` +
       treeHtml(child, lang, pages, currentPath) + '</li>'
@@ -62,11 +62,11 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
       else if (groups.length) groups[groups.length - 1].kids.push(t)
       else groups.push({ head: null, kids: [t] })
     }
-    const li = t => `<li><a href="#${t.slug}">${esc(t.text)}</a></li>`
+    const li = t => `<li><a href="#${t.slug}" title="${esc(t.text)}">${esc(t.text)}</a></li>`
     return '<ul>' + groups.map(g => {
       const kids = g.kids.map(li).join('')
       if (!g.head) return kids
-      return `<li><a href="#${g.head.slug}">${esc(g.head.text)}</a>` +
+      return `<li><a href="#${g.head.slug}" title="${esc(g.head.text)}">${esc(g.head.text)}</a>` +
         (kids ? `<ul>${kids}</ul>` : '') + '</li>'
     }).join('') + '</ul>'
   }
