@@ -1,0 +1,9 @@
+{
+  "siteTitle": "Blog",
+  "untranslated": "Not translated yet",
+  "viewOriginal": "View original",
+  "theme": { "light": "Light", "dark": "Dark", "auto": "Auto" },
+  "language": { "zh": "中文", "en": "English" },
+  "toc": "On this page",
+  "readMore": "Read →"
+}

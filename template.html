@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{HTML_LANG}}" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    try {
+      var t = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <link rel="stylesheet" href="{{BASE}}/style.css">
+  <link rel="alternate" type="application/rss+xml" hreflang="{{LANG}}" href="{{BASE}}/{{LANG}}/rss.xml">
+{{ALTERNATES}}
+</head>
+<body hx-boost="true" hx-target="#content" hx-select="#content" hx-swap="outerHTML swap:200ms">
+  <div class="layout">
+    <aside id="sidebar">
+      <div class="brand">
+        <a href="{{BASE}}/{{LANG}}/">{{SITE_TITLE}}</a>
+      </div>
+      <nav class="tree" aria-label="menu">
+{{TREE_HTML}}
+      </nav>
+    </aside>
+
+    <header id="topbar">
+      <input type="checkbox" id="menu-control" class="toggle" aria-label="Menu">
+      <label for="menu-control" class="menu-btn" aria-hidden="true"></label>
+      <div id="controls">
+        <select id="lang-select" aria-label="language">
+{{LANG_OPTIONS}}
+        </select>
+        <select id="theme-select" aria-label="theme">
+          <option value="light">{{THEME_LIGHT}}</option>
+          <option value="dark">{{THEME_DARK}}</option>
+          <option value="auto">{{THEME_AUTO}}</option>
+        </select>
+      </div>
+    </header>
+
+    <main id="content" hx-history-elt>
+{{CONTENT}}
+    </main>
+  </div>
+
+  <label for="menu-control" id="menu-overlay" aria-hidden="true"></label>
+
+  <script src="{{BASE}}/static/htmx.min.js" defer></script>
+  <script src="{{BASE}}/static/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "极简静态博客生成器（build.mjs + htmx 局部刷新）",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node build.mjs --serve"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "shiki": "^3.4.0"
+  },
+  "devDependencies": {
+    "mathjax-full": "^3.2.1"
+  }
+}
