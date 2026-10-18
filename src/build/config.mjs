@@ -11,7 +11,7 @@ export const PUBLIC_DIR = path.join(ROOT, 'public')
 export const TEMPLATE_PATH = path.join(ROOT, 'src', 'template.html')
 export const UI_DIR = path.join(ROOT, 'src', 'locales')
 export const STATIC_DIR = path.join(ROOT, 'src', 'static')
-export const STYLE_PATH = path.join(ROOT, 'style.css')
+export const STYLE_DIR = path.join(ROOT, 'src', 'styles')
 
 export const TEMPLATE = fs.readFileSync(TEMPLATE_PATH, 'utf8')
 

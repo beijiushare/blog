@@ -1,0 +1,15 @@
+/*! 08-animation.css — htmx 换页动画、主题 View Transition 擦除、reduced-motion 降级 */
+#content{transition:opacity .18s ease,transform .18s ease}
+#content.htmx-swapping{opacity:0;transform:translateY(8px)}
+#content.htmx-added{opacity:0}
+#content.htmx-settling{transition:opacity .18s ease,transform .18s ease}
+
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal;display:block;height:100%;width:100%;object-fit:cover}
+::view-transition-old(root){z-index:1}
+::view-transition-new(root){z-index:9999}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  ::view-transition-old(root),::view-transition-new(root){animation:none !important}
+}

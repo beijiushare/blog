@@ -1,0 +1,17 @@
+/*! 02-variables.css — 变量（hugo-book, MIT, Alex Shpak） */
+:root{
+  --font-size:100%;
+  --font-size-smaller:.875rem;
+  --font-size-smallest:.75rem;
+  --body-font-weight:400;
+  --border-radius:.25rem;
+  --space-1:1px;
+  --space-4:.25rem;
+  --space-8:.5rem;
+  --space-16:1rem;
+  --body-min-width:20rem;
+  --container-max-width:90rem;
+  --menu-width:16rem;
+  --toc-width:16rem;
+  --content-max-width:46rem;
+}
