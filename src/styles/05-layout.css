@@ -44,7 +44,7 @@ input.toggle:checked+label+ul{display:block}
 .toc{font-size:var(--toc-font-size)}
 .toc ul{padding:0;margin:0;list-style:none;padding-inline-start:1.25em}
 .toc>ul{padding-inline-start:0}
-.toc li{margin:.3em 0}
+.toc li{margin:.15em 0}
 .toc a{display:block;color:var(--toc-link-color);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .toc a:hover{text-decoration:underline}
 .toc a.active{font-weight:600}
