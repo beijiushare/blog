@@ -44,6 +44,51 @@
     if (s) s.value = docEl.getAttribute('data-theme') || 'light'
   }
 
+  /* lang options live in topbar (outside swap area): rebuild values for current path */
+  function syncLangOptions () {
+    var s = document.getElementById('lang-select')
+    if (!s) return
+    var base = docEl.getAttribute('data-base') || ''
+    var p = location.pathname
+    if (base && p.indexOf(base + '/') === 0) p = p.slice(base.length + 1)
+    else p = p.replace(/^\//, '')
+    var seg = p.split('/')
+    var lang = seg.shift()
+    var rel = seg.join('/')
+    if (!lang) return
+    for (var i = 0; i < s.options.length; i++) {
+      var o = s.options[i]
+      var l = o.getAttribute('data-lang')
+      if (l) o.value = base + '/' + l + '/' + rel
+    }
+  }
+
+  /* per-path scroll memory for the middle pane (window no longer scrolls) */
+  function paneEl () { return document.querySelector('#content>article') }
+
+  var saveTimer = null
+  function scheduleScrollSave () {
+    if (saveTimer) return
+    saveTimer = setTimeout(function () {
+      saveTimer = null
+      var a = paneEl()
+      if (!a || a.scrollHeight <= a.clientHeight + 2) return
+      try { sessionStorage.setItem('paneScroll:' + location.pathname, String(a.scrollTop)) } catch (e) {}
+    }, 150)
+  }
+
+  function restoreScroll () {
+    var a = paneEl()
+    if (!a || location.hash) return
+    var v = null
+    try { v = sessionStorage.getItem('paneScroll:' + location.pathname) } catch (e) {}
+    if (v) a.scrollTop = parseInt(v, 10) || 0
+  }
+
+  document.addEventListener('scroll', function (e) {
+    if (e.target && e.target.tagName === 'ARTICLE') scheduleScrollSave()
+  }, true)
+
   /* delegated change binding: survives htmx swap (nodes rebuilt each page) */
   document.addEventListener('change', function (e) {
     var el = e.target
@@ -62,7 +107,7 @@
     if (e.altKey || e.ctrlKey || e.metaKey) return
     var tag = (e.target.tagName || '').toLowerCase()
     if (tag === 'input' || tag === 'select' || tag === 'textarea' || tag === 'button' || e.target.isContentEditable) return
-    var c = document.getElementById('content')
+    var c = paneEl()
     if (!c || c.scrollHeight <= c.clientHeight + 2) return
     var k = e.key
     if (k === 'Home') { e.preventDefault(); c.scrollTop = 0; return }
@@ -120,8 +165,14 @@
     var mc = document.getElementById('menu-control')
     if (mc) mc.checked = false
     syncThemeSelect()
+    syncLangOptions()
+    restoreScroll()
     initToc()
     updateTreeActive()
+  })
+
+  document.body.addEventListener('htmx:historyRestore', function () {
+    setTimeout(function () { restoreScroll(); initToc() }, 0)
   })
 
   document.body.addEventListener('htmx:responseError', clearFade)
@@ -145,9 +196,11 @@
 
   /* ---- init ---- */
   syncThemeSelect()
+  syncLangOptions()
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { syncThemeSelect(); initToc() })
+    document.addEventListener('DOMContentLoaded', function () { syncThemeSelect(); syncLangOptions(); initToc(); restoreScroll() })
   } else {
     initToc()
+    restoreScroll()
   }
 })()
