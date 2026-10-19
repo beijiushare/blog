@@ -1,5 +1,5 @@
 /*! 06-markdown.css — 正文排版（hugo-book markdown.css 裁剪，details 手风琴版） */
-.markdown{line-height:1.5}
+.markdown{line-height:1.5;overflow-wrap:break-word}
 .markdown>*:first-child{margin-top:0}
 .markdown h1,.markdown h2,.markdown h3,.markdown h4,.markdown h5,.markdown h6{margin:var(--space-16) 0;line-height:1.4;scroll-margin-top:var(--space-16)}
 .markdown h1{font-size:1.75em}
