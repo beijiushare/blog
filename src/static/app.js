@@ -232,6 +232,24 @@
     headings.forEach(function (h) { tocObserver.observe(h) })
   }
 
+  /* ---- image loading placeholder ---- */
+  function hideImgHint (img) {
+    var h = img.previousElementSibling
+    if (h && h.classList && h.classList.contains('img-load-hint')) h.parentNode.removeChild(h)
+  }
+
+  function initImages () {
+    var imgs = document.querySelectorAll('.img-load img')
+    for (var i = 0; i < imgs.length; i++) {
+      (function (img) {
+        if (img.complete) { hideImgHint(img); return }
+        var done = function () { hideImgHint(img) }
+        img.addEventListener('load', done)
+        img.addEventListener('error', done)
+      })(imgs[i])
+    }
+  }
+
   /* ---- htmx: swap animation + TOC re-init + menu close + active tree update ---- */
   function contentEl () { return document.getElementById('content') }
 
@@ -246,11 +264,12 @@
     initControls()
     restoreScroll()
     initToc()
+    initImages()
     updateTreeActive()
   })
 
   document.body.addEventListener('htmx:historyRestore', function () {
-    setTimeout(function () { restoreScroll(); initToc() }, 0)
+    setTimeout(function () { restoreScroll(); initToc(); initImages() }, 0)
   })
 
   document.body.addEventListener('htmx:responseError', clearFade)
@@ -280,9 +299,10 @@
   }
   initControls()
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { initControls(); initToc(); restoreScroll() })
+    document.addEventListener('DOMContentLoaded', function () { initControls(); initToc(); restoreScroll(); initImages() })
   } else {
     initToc()
     restoreScroll()
+    initImages()
   }
 })()

@@ -3,6 +3,7 @@
   "untranslated": "暫未翻譯",
   "viewOriginal": "查看原文",
   "editPage": "編輯此頁",
+  "imageLoading": "圖片載入中……",
   "theme": { "light": "亮", "dark": "暗", "auto": "自動" },
   "language": { "zh": "简中", "en": "English", "zh-Hant": "繁中" },
   "toc": "本頁目錄",

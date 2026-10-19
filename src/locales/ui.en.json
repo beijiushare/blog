@@ -3,6 +3,7 @@
   "untranslated": "Not translated yet",
   "viewOriginal": "View original",
   "editPage": "Edit this page",
+  "imageLoading": "Loading image…",
   "theme": { "light": "Light", "dark": "Dark", "auto": "Auto" },
   "language": { "zh": "简中", "en": "English", "zh-Hant": "繁中" },
   "toc": "On this page",

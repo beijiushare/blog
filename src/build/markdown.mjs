@@ -6,7 +6,7 @@ import { SVG } from 'mathjax-full/js/output/svg.js'
 import { liteAdaptor } from 'mathjax-full/js/adaptors/liteAdaptor.js'
 import { RegisterHTMLHandler } from 'mathjax-full/js/handlers/html.js'
 import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages.js'
-import { esc, BASE } from './config.mjs'
+import { esc, BASE, UI } from './config.mjs'
 
 const md = new MarkdownIt({ html: true, linkify: true })
 
@@ -28,6 +28,15 @@ md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
 }
 md.renderer.rules.table_open = () => '<div class="table-wrap"><table>\n'
 md.renderer.rules.table_close = () => '</table></div>\n'
+
+let curLang = 'zh'
+const defaultImage = md.renderer.rules.image ||
+  ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options))
+md.renderer.rules.image = (tokens, idx, options, env, self) => {
+  const img = defaultImage(tokens, idx, options, env, self)
+  const label = esc((UI[curLang] || UI.zh).imageLoading)
+  return `<span class="img-load"><span class="img-load-hint">${label}</span>${img}</span>`
+}
 
 let toc = []
 const slugSeen = new Map()
@@ -142,7 +151,8 @@ export async function ensureHighlighter () {
   return highlighter
 }
 
-export function renderMarkdown (body) {
+export function renderMarkdown (body, lang = 'zh') {
+  curLang = lang
   slugSeen.clear()
   const { src, stash } = extractMath(body)
   let html = md.render(src)
