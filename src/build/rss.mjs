@@ -24,6 +24,7 @@ function rssContent (p) {
   if (!p.renderedHtml) return ''
   const html = p.renderedHtml
     .replace(/<span class="img-load-hint">[^<]*<\/span>/g, '')
+    .replace(/^\s*<h1[^>]*>[\s\S]*?<\/h1>\s*/, '')
     .replace(/(href|src)="\/(?!\/)/g, `$1="${ORIGIN}/`)
     .replace(/]]>/g, ']]]]><![CDATA[>')
   return `<content:encoded><![CDATA[${html}]]></content:encoded>`
