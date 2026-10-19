@@ -1,6 +1,6 @@
 # 北酒随笔
 
-个人博客：<https://blog.beijiu.top>
+个人博客：<https://beijiu.top/blog>
 
 ## 许可
 
