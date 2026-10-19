@@ -9,7 +9,7 @@
 .markdown .page-footer{margin-top:var(--space-32);font-size:.85em;color:var(--gray-600)}
 .markdown .page-footer p{margin:var(--space-4) 0}
 .markdown .page-footer a{color:inherit}
-.markdown ul,.markdown ol,.markdown pre,.markdown table,.markdown details{margin:var(--space-16) 0}
+.markdown ul,.markdown ol,.markdown pre,.markdown details{margin:var(--space-16) 0}
 .markdown p{margin:var(--space-16) 0 1em}
 .markdown ul,.markdown ol{padding-inline-start:1.5em}
 .markdown li+li{margin-top:.25em}
@@ -18,7 +18,8 @@
 .markdown pre{background:#F6F8FA;border-radius:var(--border-radius);padding:var(--space-16);overflow-x:auto;line-height:1.5}
 .markdown pre code{background:transparent}
 .markdown pre code{background:none;padding:0;font-size:.875em}
-.markdown table{border-collapse:collapse;width:100%;font-size:.9em}
+.markdown .table-wrap{margin:var(--space-16) 0;overflow-x:auto}
+.markdown table{border-collapse:collapse;width:max-content;min-width:100%;font-size:.9em}
 .markdown th,.markdown td{border:var(--space-1) solid var(--gray-200);padding:var(--space-8) var(--space-16);text-align:start}
 .markdown th{background:var(--gray-100);font-weight:600}
 .markdown img{border-radius:var(--border-radius)}
