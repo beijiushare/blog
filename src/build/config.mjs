@@ -1,3 +1,4 @@
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -15,6 +16,13 @@ export const STATIC_DIR = path.join(ROOT, 'src', 'static')
 export const STYLE_DIR = path.join(ROOT, 'src', 'styles')
 
 export const TEMPLATE = fs.readFileSync(TEMPLATE_PATH, 'utf8')
+
+export const STYLE_FILES = fs.readdirSync(STYLE_DIR).filter(f => f.endsWith('.css')).sort()
+const staticFiles = fs.readdirSync(STATIC_DIR, { withFileTypes: true }).filter(e => e.isFile()).map(e => e.name).sort()
+const hash = crypto.createHash('sha1')
+for (const f of STYLE_FILES) hash.update(f + '\0' + fs.readFileSync(path.join(STYLE_DIR, f), 'utf8'))
+for (const f of staticFiles) hash.update(f + '\0' + fs.readFileSync(path.join(STATIC_DIR, f), 'utf8'))
+export const ASSET_Q = '?v=' + hash.digest('hex').slice(0, 8)
 
 export const UI = {}
 for (const f of fs.readdirSync(UI_DIR)) {

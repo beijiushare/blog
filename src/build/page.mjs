@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { BASE, SITE_URL, TEMPLATE, UI, esc, pageUrl, outFile, REPO } from './config.mjs'
+import { BASE, SITE_URL, TEMPLATE, ASSET_Q, UI, esc, pageUrl, outFile, REPO } from './config.mjs'
 import { renderMarkdown } from './markdown.mjs'
 
 export function treeHtml (node, lang, pages, currentPath, depth = 0) {
@@ -109,6 +109,7 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
     .replaceAll('{{TITLE}}', esc(`${title} · ${siteTitle}`))
     .replaceAll('{{DESCRIPTION}}', esc(description))
     .replaceAll('{{BASE}}', BASE)
+    .replaceAll('{{ASSET_Q}}', ASSET_Q)
     .replaceAll('{{LANG}}', lang)
     .replaceAll('{{SITE_TITLE}}', esc(siteTitle))
     .replaceAll('{{ALTERNATES}}', alternates)

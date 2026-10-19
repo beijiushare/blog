@@ -11,7 +11,7 @@
   </script>
   <title>{{TITLE}}</title>
   <meta name="description" content="{{DESCRIPTION}}">
-  <link rel="stylesheet" href="{{BASE}}/style.css">
+  <link rel="stylesheet" href="{{BASE}}/style.css{{ASSET_Q}}">
   <link rel="alternate" type="application/rss+xml" hreflang="{{LANG}}" href="{{BASE}}/{{LANG}}/rss.xml">
 {{ALTERNATES}}
 </head>
@@ -53,7 +53,7 @@
 
   <label for="menu-control" id="menu-overlay" aria-hidden="true"></label>
 
-  <script src="{{BASE}}/static/htmx.min.js" defer></script>
-  <script src="{{BASE}}/static/app.js" defer></script>
+  <script src="{{BASE}}/static/htmx.min.js{{ASSET_Q}}" defer></script>
+  <script src="{{BASE}}/static/app.js{{ASSET_Q}}" defer></script>
 </body>
 </html>
