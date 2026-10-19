@@ -44,6 +44,7 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
     title = page.data.title || (relPath === 'index' ? siteTitle : relPath.split('/').pop())
     description = page.data.description || ''
     const r = renderMarkdown(page.body)
+    page.renderedHtml = r.html
     contentHtml = r.html
     tocItems = r.tocItems
     const d = page.data.date
