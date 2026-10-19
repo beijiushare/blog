@@ -2,6 +2,12 @@
 
 个人博客：<https://beijiu.top/blog>
 
+## RSS 订阅
+
+- 简体中文：<https://beijiu.top/blog/zh/rss.xml>
+- 繁體中文：<https://beijiu.top/blog/zh-Hant/rss.xml>
+- English：<https://beijiu.top/blog/en/rss.xml>
+
 ## 许可
 
 代码与内容的使用条款见 [LICENCE](./LICENCE)：
