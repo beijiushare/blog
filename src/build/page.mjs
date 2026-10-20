@@ -3,7 +3,7 @@ import path from 'node:path'
 import { BASE, SITE_URL, TEMPLATE, ASSET_Q, UI, esc, pageUrl, outFile, REPO } from './config.mjs'
 import { renderMarkdown } from './markdown.mjs'
 
-export function treeHtml (node, lang, pages, currentPath, depth = 0) {
+export function treeHtml (node, lang, pages, currentPath, depth = 0, seq = { n: 0 }) {
   const kids = [...node.children.values()]
   if (!kids.length) return ''
   let html = '<ul>'
@@ -12,18 +12,19 @@ export function treeHtml (node, lang, pages, currentPath, depth = 0) {
     const title = real?.data?.title || child.name
     if (child.isPage) {
       const active = currentPath === child.path ? ' class="active"' : ''
-      const sub = child.children.size ? treeHtml(child, lang, pages, currentPath, depth + 1) : ''
+      const sub = child.children.size ? treeHtml(child, lang, pages, currentPath, depth + 1, seq) : ''
       html += `<li><a href="${pageUrl(lang, child.path)}" title="${esc(title)}"${active}>${esc(title)}</a>${sub}</li>`
       continue
     }
-    const id = 'tree-' + lang + '-' + child.path.replace(/[^a-zA-Z0-9]+/g, '-')
+    const slug = child.path.replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'dir'
+    const id = 'tree-' + lang + '-' + slug + '-' + (++seq.n)
     const checked = depth === 0 || currentPath === child.path || currentPath.startsWith(child.path + '/') ? ' checked' : ''
     const labelInner = real
       ? `<a href="${pageUrl(lang, child.path)}" title="${esc(title)}">${esc(title)}</a>`
       : `<span title="${esc(child.name)}">${esc(child.name)}</span>`
     html += `<li><input class="toggle" type="checkbox" id="${id}"${checked}>` +
       `<label for="${id}"><span class="chevron"></span>${labelInner}</label>` +
-      treeHtml(child, lang, pages, currentPath, depth + 1) + '</li>'
+      treeHtml(child, lang, pages, currentPath, depth + 1, seq) + '</li>'
   }
   return html + '</ul>'
 }
