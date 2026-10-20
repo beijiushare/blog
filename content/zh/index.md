@@ -2,6 +2,7 @@
 title: 首页
 date: 2026-10-17
 description: 博客首页
+key: home
 ---
 
 # 欢迎

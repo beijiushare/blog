@@ -12,7 +12,7 @@ nav ul a[href]:hover{opacity:.5}
 nav ul ul{padding-inline-start:1.5em}
 img{max-width:100%;height:auto}
 hr{border:0;border-top:var(--space-1) solid var(--gray-200);margin:var(--space-16) 0}
-blockquote{margin:var(--space-16) 0;padding:var(--space-8) var(--space-16);border:2px dashed var(--quote-color);border-radius:var(--border-radius)}
+blockquote{margin:var(--space-16) 0}
 .markdown blockquote>:first-child{margin-top:0}
 .markdown blockquote>:last-child{margin-bottom:0}
 

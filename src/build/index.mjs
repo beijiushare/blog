@@ -2,9 +2,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { Converter } from 'opencc-js'
 import { BASE, DEFAULT_LANG, PUBLIC_DIR, STATIC_DIR, STYLE_DIR, STYLE_FILES, UI, esc } from './config.mjs'
-import { scanContent, buildTree, unionKeys } from './content.mjs'
+import { scanContent, buildTree } from './content.mjs'
 import { ensureHighlighter } from './markdown.mjs'
 import { renderPage } from './page.mjs'
+import { initSlugs } from './slugs.mjs'
 import { genRss } from './rss.mjs'
 import { serve } from './serve.mjs'
 
@@ -30,18 +31,31 @@ async function main () {
     const ib = langOrder.indexOf(b)
     return (ia === -1 ? langOrder.length : ia) - (ib === -1 ? langOrder.length : ib)
   })
-  const tree = buildTree(pages, langs, orders)
+  const trees = {}
+  for (const lang of langs) {
+    const source = lang === 'en' && pages.en ? 'en' : 'zh'
+    trees[lang] = buildTree(pages, [source], orders)
+  }
   await ensureHighlighter()
 
   fs.rmSync(PUBLIC_DIR, { recursive: true, force: true })
   fs.mkdirSync(PUBLIC_DIR, { recursive: true })
 
-  const union = unionKeys(pages, langs)
+  initSlugs(pages, langs)
+
+  const pairs = new Map()
+  for (const lang of langs) {
+    for (const [rel, p] of pages[lang]) {
+      const key = p.data.key ? String(p.data.key) : rel
+      if (!pairs.has(key)) pairs.set(key, new Map())
+      pairs.get(key).set(lang, rel)
+    }
+  }
 
   for (const lang of langs) {
     const langSiteTitle = (UI[lang] || UI.zh).siteTitle || siteTitle
-    for (const rel of union) {
-      await renderPage(lang, rel, pages, langs, tree, langSiteTitle)
+    for (const rel of pages[lang].keys()) {
+      await renderPage(lang, rel, pages, langs, trees[lang], langSiteTitle, pairs)
     }
     genRss(lang, pages)
   }
@@ -53,7 +67,7 @@ async function main () {
   const rootHtml = `<!DOCTYPE html><html lang="${DEFAULT_LANG}"><head><meta charset="utf-8"><title>${esc(siteTitle)}</title><meta http-equiv="refresh" content="0;url=${BASE}/${DEFAULT_LANG}/"><script>try{var l=localStorage.getItem('lang');if(!l){var n=(navigator.language||'').toLowerCase();l=n.indexOf('zh')===0?(n.indexOf('zh-tw')===0||n.indexOf('zh-hk')===0||n.indexOf('zh-mo')===0||n.indexOf('zh-hant')===0?'zh-Hant':'zh'):'en'};location.replace(l+'/')}catch(e){location.replace('${DEFAULT_LANG}/')}</script></head><body></body></html>`
   fs.writeFileSync(path.join(PUBLIC_DIR, 'index.html'), rootHtml)
 
-  const pageCount = union.size * langs.length
+  const pageCount = langs.reduce((n, lang) => n + pages[lang].size, 0)
   console.log(`build: ${pageCount} pages, ${langs.length} langs (${langs.join(', ')}), ${Date.now() - t0}ms`)
 
   const serveArg = process.argv.indexOf('--serve')

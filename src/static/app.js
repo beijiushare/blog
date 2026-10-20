@@ -109,18 +109,14 @@
   function syncLangOptions () {
     var s = document.getElementById('lang-select')
     if (!s) return
-    var base = docEl.getAttribute('data-base') || ''
-    var p = location.pathname
-    if (base && p.indexOf(base + '/') === 0) p = p.slice(base.length + 1)
-    else p = p.replace(/^\//, '')
-    var seg = p.split('/')
-    var lang = seg.shift()
-    var rel = seg.join('/')
-    if (!lang) return
+    var holder = document.querySelector('#content [data-lang-hrefs]')
+    if (!holder) return
+    var map = null
+    try { map = JSON.parse(holder.getAttribute('data-lang-hrefs')) } catch (err) { return }
     for (var i = 0; i < s.options.length; i++) {
       var o = s.options[i]
       var l = o.getAttribute('data-lang')
-      if (l) o.value = base + '/' + l + '/' + rel
+      if (l && map[l]) o.value = map[l]
     }
   }
 

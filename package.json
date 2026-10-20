@@ -12,6 +12,7 @@
     "gray-matter": "^4.0.3",
     "markdown-it": "^14.1.0",
     "opencc-js": "^1.4.2",
+    "pinyin-pro": "^3.29.5",
     "shiki": "^3.4.0"
   },
   "devDependencies": {

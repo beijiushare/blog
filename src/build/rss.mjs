@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { SITE_URL, PUBLIC_DIR, UI, escXml } from './config.mjs'
+import { sitePageUrl } from './slugs.mjs'
 
 function rssSummary (p) {
   if (p.data.description) return p.data.description
@@ -37,7 +38,7 @@ export function genRss (lang, pages) {
   for (const [rel, p] of pages[lang]) {
     if (!p.data.date) continue
     if (/^tests(\/|$)/.test(rel)) continue
-    const url = `${SITE_URL}/${lang}/${rel === 'index' ? '' : rel + '/'}`
+    const url = sitePageUrl(lang, rel)
     items.push({
       date: new Date(p.data.date),
       xml: `<item><title>${escXml(p.data.title || rel)}</title><link>${escXml(url)}</link><guid isPermaLink="true">${escXml(url)}</guid><pubDate>${new Date(p.data.date).toUTCString()}</pubDate><description>${escXml(rssSummary(p))}</description>${rssContent(p)}</item>`

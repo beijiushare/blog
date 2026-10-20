@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { BASE, SITE_URL, TEMPLATE, ASSET_Q, UI, esc, pageUrl, outFile, REPO } from './config.mjs'
+import { BASE, SITE_URL, TEMPLATE, ASSET_Q, UI, esc, REPO } from './config.mjs'
+import { pageUrl, sitePageUrl, outFile } from './slugs.mjs'
 import { renderMarkdown } from './markdown.mjs'
 
 export function treeHtml (node, lang, pages, currentPath, depth = 0, seq = { n: 0 }) {
@@ -29,15 +30,21 @@ export function treeHtml (node, lang, pages, currentPath, depth = 0, seq = { n: 
   return html + '</ul>'
 }
 
-export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) {
+export async function renderPage (lang, relPath, pages, langs, tree, siteTitle, pairs = new Map()) {
   const ui = UI[lang] || UI.zh
   const page = pages[lang].get(relPath)
-  const langOptions = langs.map(l => {
-    const u = `${BASE}/${l}/${relPath === 'index' ? '' : relPath + '/'}`
-    return `<option value="${u}" data-lang="${l}"${l === lang ? ' selected' : ''}>${esc((UI[l] || UI.zh).language[l] || l)}</option>`
-  }).join('')
-  const alternates = langs.map(l =>
-    `<link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}/${relPath === 'index' ? '' : relPath + '/'}">`
+  const key = page && page.data.key != null ? String(page.data.key) : relPath
+  const group = pairs.get(key) || new Map()
+  const pairHrefs = {}
+  for (const l of langs) {
+    const rel = group.get(l)
+    pairHrefs[l] = rel ? pageUrl(l, rel) : pageUrl(l, 'index')
+  }
+  const langOptions = langs.map(l =>
+    `<option value="${pairHrefs[l]}" data-lang="${l}"${l === lang ? ' selected' : ''}>${esc((UI[l] || UI.zh).language[l] || l)}</option>`
+  ).join('')
+  const alternates = langs.filter(l => group.has(l)).map(l =>
+    `<link rel="alternate" hreflang="${l}" href="${sitePageUrl(l, group.get(l))}">`
   ).join('\n    ')
 
   let title, description, contentHtml, tocItems = []
@@ -55,7 +62,7 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
       (dateStr ? `<time datetime="${dateStr}">${dateStr}</time>` : '<span></span>') +
       `<a href="https://github.com/${REPO}/edit/master/content/${editLang}/${relPath}.md" target="_blank" rel="noopener">${esc(ui.editPage)}</a></div>`
     contentHtml = contentHtml.includes('</h1>') ? contentHtml.replace('</h1>', '</h1>' + meta) : meta + contentHtml
-    const pageUrlAbs = `${SITE_URL}/${lang}/${relPath === 'index' ? '' : relPath + '/'}`
+    const pageUrlAbs = sitePageUrl(lang, relPath)
     const attribution = `${ui.copyFrom}${siteTitle}-${title}\n${ui.permalink}${pageUrlAbs}\n${ui.credit}`
     contentHtml +=
       `<div class="page-footer" data-attribution="${esc('\n' + attribution)}">` +
@@ -120,7 +127,7 @@ export async function renderPage (lang, relPath, pages, langs, tree, siteTitle) 
     .replaceAll('{{THEME_LIGHT}}', esc(ui.theme.light))
     .replaceAll('{{THEME_DARK}}', esc(ui.theme.dark))
     .replaceAll('{{THEME_AUTO}}', esc(ui.theme.auto))
-    .replaceAll('{{CONTENT}}', `<article class="markdown">${contentHtml}</article>`)
+    .replaceAll('{{CONTENT}}', `<article class="markdown" data-lang-hrefs="${esc(JSON.stringify(pairHrefs))}">${contentHtml}</article>`)
     .replaceAll('{{TOC}}', toc)
 
   const out = outFile(lang, relPath)

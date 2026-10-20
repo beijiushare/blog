@@ -33,13 +33,3 @@ for (const f of fs.readdirSync(UI_DIR)) {
 
 export const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 export const escXml = s => esc(s).replace(/'/g, '&apos;')
-
-export function pageUrl (lang, relPath) {
-  if (relPath === 'index') return `${BASE}/${lang}/`
-  return `${BASE}/${lang}/${relPath}/`
-}
-
-export function outFile (lang, relPath) {
-  if (relPath === 'index') return path.join(PUBLIC_DIR, lang, 'index.html')
-  return path.join(PUBLIC_DIR, lang, relPath, 'index.html')
-}
